@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>sss</title>
+	<script src="../AmazeUI/assets/js/jquery.min.js"></script>
+	<script src="../AmazeUI/assets/js/vue.js" ></script>
+	<style type="text/css">
+		.myborder1{
+		 	border: dashed 1px #0C79B1;	
+		}
+		.myborder2{
+			border: dashed 1px #C10802;
+		}
+		span:before
+		{ 
+			content:"****";
+			color:red;
+		}
+		span:after{
+		 	content: '****';
+			color:red;
+		}
+		.caret-up {
+		  	width: 0;
+			height: 0;
+			border-right: 40px solid transparent;
+			border-left: 40px solid #ff0000;
+			border-bottom: 40px solid transparent;
+		}
+		.sss{
+			width: 0;
+			height: 0;
+			border-top: 40px solid #000;
+			border-right: 40px solid #ff0000;
+			border-left: 40px solid #ff0000;
+			border-bottom: 40px solid #000;
+		}
+		.aaa{
+			width: 0;
+			height: 0;
+			border-right:20px solid ;
+			border-top: 50px solid #0B97C4 transparent;
+			border-bottom: 60px solid transparent;
+		}
+	</style>
+	</head>
+	<body>
+		<div class="caret-up"></div>
+		<div class="sss"><img src="../guaguaka/images/guajiang.png" alt="" /></div>
+		<div class="aaa"></div>
+		<div id="app">
+			<p>{{message}}</p>
+			<p v-if="greeting">Hello!</p>
+			<select v-model="selected">
+			  <option v-for="item in prolist" v-bind:value="item.pid">
+			    {{ item.realName }}
+			  </option>
+			</select>
+			<br />
+			<span>Selected: {{ selected }}</span>
+			
+			<li v-for='test in todos'>{{$index+1}}||{{test.text}}</li>
+			
+			<span></span>
+			<br />
+			
+			<template v-for="item in pdlist">
+				<input 
+					type="checkbox" 
+					v-bind:id="item.uid" 
+					v-model="item.uid"
+					v-bind:true-value="0"
+					>
+				<label v-bind:for="item.uid" >{{item.name}}</label>
+			</template>
+			
+			
+			
+			<br />			
+			
+			<input type="text" v-model="message"/>
+			<button v-on:click="reverseMessage">ReverseMessage</button>
+			<button v-on:click="getData">test1</button>
+			<button v-on:click="addTodo">addTodo</button>
+			<button v-on:click="removeTodo($index)">removeTodo</button>
+			<button v-on:click="getPdlistData">getPdlistData</button>
+		</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			vm.getListData();
+			vm.getPdlistData();
+		});
+		var vm=new Vue({
+		  el: '#app',
+		  data: {
+		  	greeting: false,
+		    message: 'Hello Vue.js!',
+		    newTodo:'helloworld',
+		    prolist:'./json/prolist.json',
+		    pdlist:'./json/pdlist.json',
+		    todos: [
+		      { text: 'Learn JavaScript'},
+		      { text: 'Learn Vue.js'},
+		      { text: 'Build Something Awesome'}
+		    ],
+		    prolist: [],
+		    pdlist:[],
+		  },
+		  methods: {
+		    reverseMessage: function () {
+		      this.message = this.message.split('').reverse().join('')
+		    },
+		    getData: function(){
+		      var aa=$("#app").children('p').html();
+		      alert('ss::'+aa);
+		    },
+		    removeTodo: function (index) {
+		      this.todos.splice(index, 1);
+		    },
+		    addTodo: function (txt) {
+		      var text = this.newTodo.trim();
+			  var text=$("#app").children('input').val();
+			  console.log('text--:',text);
+		      if (text) {
+		        this.todos.push({ text: text });
+		        this.newTodo = '';
+		      }
+		    },
+		    getListData: function() {
+//		    	var proListUrl=this.prolist;
+//		    	console.log('prolist--->:',vm.prolist);
+		    	var proListUrl='./json/prolist.json';
+				$.get(proListUrl, function(result, states, xhr) {
+					if (result) {
+						$.each(result, function(i) {
+//							console.log(result[i].realName+result[i].pid);
+							vm.prolist.push({realName:result[i].realName,pid:result[i].pid})
+						});
+						
+					} else {
+						alert("请求失败,请刷新重试!");
+					}
+				}).fail(function() {
+					alert("请求失败！");
+				});
+			},
+			getPdlistData: function(){
+//				var proListUrl=this.prolist;
+//		    	console.log('prolist--->:',vm.prolist);
+		    	var pdListUrl='./json/pdlist.json';
+				$.get(pdListUrl, function(result, states, xhr) {
+					if (result) {
+						$.each(result, function(i) {
+							vm.pdlist.push({name:result[i].name,uid:result[i].uid});
+							console.log('11111111:',i,'+++',vm.pdlist[i].name)
+
+						});
+
+						
+					} else {
+						alert("请求失败,请刷新重试!");
+					}
+				}).fail(function() {
+					alert("请求失败！");
+				});
+				
+			}
+		  }
+		});
+	</script>
+	</body>
+</html>

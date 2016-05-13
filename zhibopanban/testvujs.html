@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>testvu</title>
+	<script src="../AmazeUI/assets/js/vue.js"></script>
+		
+	</head>
+	<body>
+		<div id="test1">
+			<span>{{msg2}}</span>
+			<br />
+			<input type="text" v-model="msg2" placeholder="edit me" />
+		</div>
+		
+		
+	<div id="app">
+	 <p>message{{ msg }}</p> 
+		 <input v-model="msg">
+	 <ul>
+	    <li v-for="todo in todos">
+	      {{ todo.text }}
+	    </li>
+	 </ul>
+	 <span>{{todoo.text}}</span>
+	  <button v-on:click="reverseMessage">Reverse Message</button>
+	  <button v-on:click="testalert">testalert</button>
+	  <button v-on:click="addTodo">addTodo</button>
+	  <button v-on:click="removeTodo($index)">removeTodo</button>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:test1,
+			data:{
+				msg:'xxxx',
+				msg2:'yyyy',
+				msg3:'zzz',
+			},
+			
+		});
+	
+	
+		new Vue({
+		  el: '#app',
+		  data: {
+		    msg: 'Hello Vue.js!',
+		    newTodo: '',
+		    todoos: [
+		      { text: 'Add some todos' }
+		    ],
+		    todos: [
+		      { text: 'Learn JavaScript' },
+		      { text: 'Learn Vue.js' },
+		      { text: 'Build Something Awesome' }
+		    ]
+		  },
+		  methods: {
+		    reverseMessage: function () {
+		      this.msg = this.msg.split('').reverse().join('')
+		    },
+		    testalert: function(){
+		    	alert('hello world');
+		    },
+		   addTodo: function () {
+		      var text = this.newTodo.trim()
+		      if (text) {
+		        this.todoos.push({ text: text })
+		        this.newTodo = ''
+		      }
+		    },
+		    removeTodo: function (index) {
+		      this.todoos.splice(index, 1)
+		    }
+		  },
+		})
+	</script>
+	</body>
+</html>

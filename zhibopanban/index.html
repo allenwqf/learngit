@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>直播排班</title>
+		<link rel="stylesheet" href="../AmazeUI/assets/css/amazeui.min.css" />
+		<script src="../AmazeUI/assets/js/jquery.min.js"></script>
+		<script src="../AmazeUI/assets/js/amazeui.min.js"></script>
+		<script src="../AmazeUI/assets/js/template.js"></script>
+		<script src="../AmazeUI/assets/js/vue.js"></script>
+	</head>
+	<style type="text/css">
+		body {
+			max-width: 1000px;
+			margin: 0 auto;
+			font-size: small;
+		}
+		
+		div {
+			/*border: 1px dotted #A60131;*/
+			text-align: center;
+		}
+		
+		.divstyle {
+			width: 14%;
+		}
+		
+		.div1 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 14%;
+		}
+		
+		.div2 {
+			position: absolute;
+			top: 0;
+			left: 14%;
+			width: 14%;
+		}
+		
+		.div3 {
+			position: absolute;
+			top: 0;
+			left: 28%;
+			width: 14%;
+		}
+		
+		.div4 {
+			position: absolute;
+			top: 0;
+			left: 42%;
+			width: 14%;
+		}
+		
+		.div5 {
+			position: absolute;
+			top: 0;
+			left: 56%;
+			width: 14%;
+		}
+		
+		.div6 {
+			position: absolute;
+			top: 0;
+			left: 70%;
+			width: 14%;
+		}
+		
+		.div7 {
+			position: absolute;
+			top: 0;
+			left: 84%;
+			width: 14%;
+		}
+		.divborder{
+			border: 1px dotted #caebfb;
+		    height: 100px;
+		    padding-top: 20px;
+		}
+		#btn1{
+			position: absolute;
+			top: 200px;
+			left: 50px;
+		}
+		.am-span-label {
+		    height: 38px;
+		    padding: 0 1em;
+		    font-size: 1.6rem;
+		    font-weight: 400;
+		    line-height: 36px;
+		    color: #555;
+		    text-align: center;
+		    background-color: #eee;
+		    border: 1px solid #ccc;
+		    border-radius: 0;
+  		}
+  		.am-select{
+  			text-align: left;
+  		}
+	</style>
+	<body>
+		
+	<div class="am-container"></div>
+	
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">节目编辑
+     <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    	<div class="am-g">
+    		<div class="am-u-sm-3 am-span-label">
+    			节目时间：
+    		</div>
+    		<div class="am-u-sm-4"><input type="text" class="am-form-field">
+    		</div>
+    		<div class="am-u-sm-4"><input type="text" class="am-form-field">
+    		</div>
+    		<!--<div class="am-u-sm-6">
+    			开始时间
+		      <input type="text" class="am-form-field">
+    		</div>
+    		<div class="am-u-sm-6">
+    			结束时间
+		      <input type="text" class="am-form-field">
+    		</div>-->
+	    </div>
+		
+		
+    	<div id="prolist" class="am-g">
+    		<div class="am-u-sm-3 am-span-label">节目名称:</div>
+			 <div class="am-u-sm-9 am-select">
+				<select data-am-selected>
+					<option value={{data.a}}>{{data.a}}</option>
+				  <!--<option v-for="todo in todos" value={{todo.text}}>{{ reverseMessage }}</option>-->
+				  <!--<option value="a">Apple</option>
+				  <option value="b" selected>Banana</option>
+				  <option value="o">Orange</option>
+				  <option value="m">Mango</option>
+				  <option value="d" disabled>禁用鸟</option>-->
+				</select>
+			</div>
+		</div>
+		
+		
+		
+		<div id="pdlist" class="am-panel am-panel-default">
+		  <div class="am-panel-hd">主持人：</div>
+		  <div class="am-panel-bd">
+		    <label v-for="todo in todos" class="am-checkbox-inline am-secondary">
+			<input type="checkbox" value="" data-am-ucheck> 1
+			</label>
+			<label class="am-checkbox-inline am-secondary">
+			<input type="checkbox" checked="checked" value="" data-am-ucheck checked>
+			  2
+			</label>
+		  </div>
+		</div>
+		
+    <div class="am-modal-footer ">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+    
+  </div>
+  
+</div>
+
+    <script type="text/html" id="template/panel">
+		<div class="div1">
+			<section class="am-panel am-panel-secondary">
+				<header class="am-panel-hd">
+					<h3 class="am-panel-title">周一</h3>
+				</header>
+				<ul class="am-list am-list-static">
+					<li>xxx</li>
+				</ul>
+			</section>
+		</div>
+		<div class="div2">
+			<section class="am-panel am-panel-secondary">
+				<header class="am-panel-hd">
+					<h3 class="am-panel-title">周二</h3>
+				</header>
+					<div class="am-list am-list-static ">
+					     {{include 'template/subContent'}}
+					     <div>添加节目</div>
+				    </div>
+			</section>
+		</div>
+		<div class="div3">
+			<div class="am-panel am-panel-secondary">
+			  <div class="am-panel-hd">
+			    <h3 class="am-panel-title">周三</h3>
+			  </div>
+			  <ul class="am-list am-list-static">
+			    <li>添加节目</li>
+			  </ul>
+			</div>
+		</div>
+		<div class="div4">
+			<section class="am-panel am-panel-secondary">
+				<header class="am-panel-hd">
+					<h3 class="am-panel-title">周四</h3>
+				</header>
+				<ul class="am-list am-list-static">
+				    <li>添加节目</li>
+				  </ul>
+			</section>
+		</div>
+		<div class="div5">
+			<section class="am-panel am-panel-secondary">
+				<header class="am-panel-hd">
+					<h3 class="am-panel-title">周五</h3>
+				</header>
+				<ul class="am-list am-list-static">
+				    <li>添加节目</li>
+				  </ul>
+			</section>
+		</div>
+		<div class="div6">
+			<section class="am-panel am-panel-secondary">
+				<header class="am-panel-hd">
+					<h3 class="am-panel-title">周六</h3>
+				</header>
+				<ul class="am-list am-list-static">
+				    <li>添加节目</li>
+				  </ul>
+			</section>
+		</div>
+		<div class="div7">
+			<section class="am-panel am-panel-secondary">
+				<header class="am-panel-hd">
+					<h3 class="am-panel-title">周日</h3>
+				</header>
+				<ul class="am-list am-list-static">
+				    <li>添加节目</li>
+				  </ul>
+
+			</section>
+							  <div id="app">
+  {{ message }}
+</div>
+		</div>
+</script>
+<script type="text/html" id="template/subContent">
+	{{each  as value i}}
+		<li data-action="program.edit" dataPid={{value.pid}}>
+			<span>{{value.platformProgram.realName}}</span>
+			<span >{{value.startTime}}-{{value.finalTime}}</span>
+			<div>
+				{{each value.platformDiscjockeyList as item}}
+				{{item.name}}
+				{{/each}}
+			</div>
+		</li>
+	{{/each}}
+	
+
+</script>
+
+<script type="text/javascript">
+new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue.js!'
+  }
+})
+	$(document).ready(function() {
+		var oCar = new Object;
+		oCar.color = "blue";
+		oCar.doors = 4;
+		oCar.mpg = 25;
+		oCar.showColor = function() {
+		  alert(this.color);
+		};
+		wqf_template.getData();
+		$('body').on('dblclick', '[data-action]', function(e){
+			var $this = $(this);
+			var action = $this.data('action');
+			var params = $this.data('params');
+			
+			if(action==='pay'){
+				console.log('00pay0000',this);
+			}
+			
+			if(action==='program.edit'){
+				console.log('00program0000',this);
+				wqf_template.popmodel();
+			}
+		});
+		
+		
+		
+//		var vm = new Vue({  });
+//		var MyComponent = Vue.extend({});
+//		// 所有的 `MyComponent` 实例都将以预定义的扩展选项被创建
+//		var myComponentInstance = new MyComponent()
+//		
+		
+		
+		var data = { a: 1 };
+		var vm = new Vue({
+		  el: '#prolist',
+		  data: "12123",
+		  methods: {
+		    reverseMessage: function () {
+		      return this.todos = "121212121";
+		      
+		    }
+		  }
+		});
+		$.get("./json/prolist.json", {}, function(result, states, xhr) {
+	      if (result) {
+	      	for(var i=0;i<result.length;i++){
+//		       console.log("result-->",result[i].realName) ;
+// 		       console.log("result-->",result[i].pid) ;
+	      	}
+	      }
+		});
+		// 设置属性也会影响到原始数据
+//		vm.a = 2
+//		data.a // -> 2
+//		
+//		// ... 反之亦然
+//		data.a = 3
+//		vm.a //
+				
+		
+		
+		
+		
+//		var vm=new Vue({
+//		  el: '#prolist',
+//		  data: {
+//		    todos: [
+//		      { text: 'Learn JavaScript' },
+//		      { text: 'Learn Vue.js' },
+//		      { text: 'Build Something Awesome' }
+//		    ]
+//		  },
+//		  methods: {
+//		    addTodo: function () {
+//		    	$.get("./json/prolist.json", {}, function(result, states, xhr) {
+//			      if (result) {
+//			        this.todos.push({ text: result.realName })
+//			      }
+//		    		
+//		    	});
+//		    	
+//		    },
+//		    removeTodo: function (index) {
+//		      this.todos.splice(index, 1)
+//		    }
+//		  }
+//		});
+		
+		
+		new Vue({
+		  el: '#pdlist',
+		  data: {
+		    todos: [
+		      { text: 'Learn JavaScript' },
+		      { text: 'Learn Vue.js' },
+		      { text: 'Build Something Awesome' }
+		    ]
+		  },
+		 
+		});
+		
+	});
+	
+	var wqf_template={
+		getData: function() {
+			var tmpURL1="./json/listjson.json";
+			var tmpURL2="./json/pdlist.json";
+			var tmpURL3="./json/prolist.json";
+			$.get(tmpURL1, {}, function(result, states, xhr) {
+				if (result) {
+					var mainHtml = template('template/panel', result[0]);
+					$(".am-container").html(mainHtml);
+				} else {
+					alert("请求失败,请刷新重试!");
+				}
+			})
+			.fail(function() {
+				alert("请求失败！");
+			});
+			},
+		popmodel: function(){
+			$('#my-confirm').modal({
+		       closeViaDimmer: 0,
+		       relatedTarget: this,
+		        onConfirm: function(options) {
+		          var $link = $(this.relatedTarget).prev('a');
+		          var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+		            '确定了，但不知道要整哪样';
+		          console.log(msg);
+		        },
+		        // closeOnConfirm: false,
+		        onCancel: function() {
+  		          console.log('算求，不弄了');
+		        }
+		      });
+			
+		},
+
+	};
+</script>
+
+</body>
+</html>

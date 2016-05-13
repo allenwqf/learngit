@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 5
+
+general:
+  branches:
+    ignore:
+      - dev
+      - csp
+
+test:
+  override:
+    - bash ./build/ci.sh

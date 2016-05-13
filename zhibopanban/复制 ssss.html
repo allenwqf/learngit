@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>sss</title>
+	<script src="../AmazeUI/assets/js/jquery.min.js"></script>
+	<script src="../AmazeUI/assets/js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{message}}</p>
+			<p v-if="greeting">Hello!</p>
+			<li v-for='test in todos'>{{$index+1}}::{{test.text}}</li>
+			<input type="text" v-model="message"/>
+			<button v-on:click="reverseMessage">ReverseMessage</button>
+			<button v-on:click="getData">test1</button>
+			<button v-on:click="addTodo">addTodo</button>
+			<button v-on:click="removeTodo($index)">removeTodo</button>
+		</div>
+		<script type="text/javascript">
+		new Vue({
+		  el: '#app',
+		  data: {
+		  	greeting: false,
+		    message: 'Hello Vue.js!',
+		    newTodo:'helloworld',
+		    todos: [
+		      { text: 'Learn JavaScript' },
+		      { text: 'Learn Vue.js' },
+		      { text: 'Build Something Awesome' }
+		    ]
+		  },
+		  methods: {
+		    reverseMessage: function () {
+		      this.message = this.message.split('').reverse().join('')
+		    },
+		    getData: function(){
+//		      this.message = 123213;
+		      var aa=$("#app").children('p').html();
+		      alert('ss::'+aa);
+		    },
+		    removeTodo: function (index) {
+		      this.todos.splice(index, 1);
+		    },
+		    addTodo: function () {
+		      var text = this.newTodo.trim();
+			  var text=$("#app").children('input').val();
+			  console.log('text--:',text);
+		      if (text) {
+		        this.todos.push({ text: text });
+		        this.newTodo = '';
+		      }
+		    },
+		  }
+		})
+		
+		
+		var data = { a: 1, b:2, c:3, d:4 };
+		var vm = new Vue({
+		data:  {
+			    a: 5454
+			  },
+		watch: {
+		    'a': function (val, oldVal) {
+		      console.log('new: %s, old: %s', val, oldVal)
+		    },
+		    // 方法名
+		    'b': 'someMethod',
+		    // 深度 watcher
+		    'c': {
+		      handler: function (val, oldVal) { /* ... */ },
+		      deep: true
+		    }
+		  }
+		})
+	vm.a = 2 // -> new: 2, old: 1
+	var arr = new Array('George','John','Thomas','James','Adrew','Martin');
+	arr.splice(3,2,'djksj');
+	document.write(arr + "<br />")
+	var str="Hello happy world!"
+	document.write(str.slice(6,-3));
+	document.write("<br />");
+	
+	</script>
+	</body>
+</html>

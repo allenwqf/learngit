@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>test</title>
+		<style type="text/css">
+		/*body{
+			height: 100%;
+			width: 100%;
+		}
+		.bg_box,img{
+			width: 100%;
+			height: 100%;
+		}*/
+		body,div,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,p,table,input{margin:0;padding:0;font-weight: normal;}
+		.bg_box{position: absolute;width: 100%;height: 100%;top: 0;left: 0;background-position: center center;background-repeat: no-repeat;}
+/*.bg_main{width: 1000px;height: 100%;position: absolute;top: 0;left: 50%;margin-left: -500px;background-position: center center;background-repeat: no-repeat;}*/
+.bg_box img{position: absolute;top: 50%;left: 50%;}
+		.product_box{
+			/*animation: myfirst 5s;*/
+			position: relative;
+			height: 100%;
+			left: -9999px;
+			top: 50%;
+		}
+		.div1{
+			position: absolute;
+			top: 30px;
+			left: 100px;
+		}
+		@keyframes myfirst
+		{
+			0%   {background: red;}
+			25%  {background: yellow;}
+			50%  {background: blue;}
+			100% {background: green;}
+		}
+		img{
+			width: 100%;
+			height: 100%;
+			
+		}
+		.container{
+			position:fixed;
+			top: 10%;
+			left: 30%;
+			width: 500px;
+			height: 500px;
+			border: dashed 1px royalblue;
+		}
+		.divleft{
+			position: absolute;
+			top: 10%;
+			width: 100%;
+			left: -500px;
+		}
+		.divmiddle{
+			position: absolute;
+			top: 10%;
+			width: 100%;
+			left: 0;
+		}
+		.divright{
+			position: absolute;
+			top: 10%;
+			width: 100%;
+			left: 500px;
+		}
+		
+		.triangle_up, .triangle_up_l, .triangle_up_r {
+		    position: absolute;
+		    left: 0;
+		    bottom: 0;
+		    border-left: 840px solid transparent;
+		    border-right: 840px solid transparent;
+		    border-bottom: 80px solid rgba(255,255,255,.9);
+		    _width: 100%;
+		    _height: 100px;
+		    _background: url(http://img2.cache.netease.com/sports/2015/11/23/anglezero_triangle_up_8.png) 50% 0 no-repeat;
+		    _border: none;
+		}
+				
+		</style>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/template.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	
+	<body>
+		<div class="triangle_up"></div>
+		<div class="div1">
+			<button class="btn1">左</button>
+			<button class="btn2">右</button>
+		</div>
+		<div class="container">
+			<div class="divleft"><img src="images/bg_member.jpg" alt="" /></div>
+			<div class="divmiddle"><img src="images/bg_shoulei.jpg" alt="" /></div>
+			<div class="divright"><img src="images/bg_xnet.jpg" alt="" /></div>
+		</div>
+		<script type="text/javascript">
+//			var j=2;
+//			alert(typeof(j));//number
+//			alert("j.constructor:" + j.constructor);//function …
+//			alert(typeof(j.constructor));//function
+//		
+			var aa=9990;
+			var bb="9990";
+			var myArray=new Array("Saab","Volvo","BMW");
+			
+			person=new Object();
+			person.firstname="Bill";
+			person.lastname="Gates";
+			person.age=56;
+			person.eyecolor="blue";
+			
+			var oObject = new Object();
+			var oStringObject = new String();
+			
+			function sayHello() {
+			  alert("hello");
+			}
+			sayHello.alternate = function() {
+			  alert("hi");
+			}
+			sayHello();		//输出 "hello"
+			sayHello.alternate();	//输出 "hi"
+			
+			
+			var myName=person.firstname.toUpperCase();
+			console.log('aa--->',typeof(aa));
+			console.log('bb--->',typeof(bb));
+			console.log('cc--->',typeof(cc));
+			console.log('myArray--->',typeof(myArray));
+			console.log('person--->',typeof(person));
+			console.log('myName--->',myName);
+		
+		
+			$(".btn1").on('click', function(){
+				$(".divleft").animate({left:'-=500px'});
+				$(".divmiddle").animate({left:'-=500px'});
+				$(".divright").animate({left:'-=500px'});
+				testslider();
+			});
+			
+			$(".btn2").on('click', function(){
+				$(".divleft").animate({left:'+=500px'});
+				$(".divmiddle").animate({left:'+=500px'});
+				$(".divright").animate({left:'+=500px'});
+				testslider();
+			});
+			function testslider(){
+				var aa=$('.divleft').css('left');
+				var bb=$(".divmiddle").css('left');
+				var cc=$(".divright").css('left');
+				console.log('aa',aa);
+				if(aa=='-500px'){
+					$(".divleft").animate({left:'500px'});
+				}
+				if(bb=='-500px'){
+					$(".divmiddle").animate({left:'500px'});
+				}
+				if(cc=='-500px'){
+					$(".divright").animate({left:'500px'});
+				}
+			}
+		</script>
+	</body>
+</html>
